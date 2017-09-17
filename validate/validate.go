@@ -107,7 +107,7 @@ func (vr *ValidateResult) money(rc, bc int) (int, error) {
 	k := matchKey{Red: rc, Blue: bc}
 	v, ok := moneyMap[k]
 	if !ok {
-		return 0, errors.Errorf("invalid match red count:%v, blue count:%v", rc, bc)
+		return 0, nil
 	}
 
 	return v, nil

@@ -72,6 +72,8 @@ func TestValidate(t *testing.T) {
 		entry LotteryEntry
 		money int
 	}{
+		//全没中
+		{LotteryEntry{Red: [6]int{1, 2, 3, 4, 5, 6}, Blue: 1}, 0},
 		//六等奖 0+1,1+1,2+1 都是5块
 		{LotteryEntry{Red: [6]int{1, 2, 3, 4, 5, 6}, Blue: 9}, 5},
 		{LotteryEntry{Red: [6]int{1, 2, 3, 4, 5, 33}, Blue: 9}, 5},
