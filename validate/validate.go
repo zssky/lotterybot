@@ -174,3 +174,9 @@ func (v Validator) Validate(expect string, lotteries []LotteryEntry) (*ValidateR
 
 	return vr, nil
 }
+
+//Combinations 验证复式结果.
+func (v Validator) Combinations(expect string, redPrefix []int, redPosfix []int, blue []int) (*ValidateResult, error) {
+	les := Combinations(redPrefix, redPosfix, blue)
+	return v.Combinations(expect, les)
+}
