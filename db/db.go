@@ -20,5 +20,5 @@ func NewSqlite3(file string) (*Sqlite3, error) {
 }
 
 func (s *Sqlite3) Close() {
-	s.Close()
+	s.DB.Close()
 }
