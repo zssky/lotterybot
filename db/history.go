@@ -3,7 +3,6 @@ package db
 import (
 	"fmt"
 	"strings"
-
 	"strconv"
 
 	"github.com/juju/errors"

@@ -7,6 +7,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
+var DBPATH string = "../data/db"
+
 type Sqlite3 struct {
 	*sql.DB
 }
