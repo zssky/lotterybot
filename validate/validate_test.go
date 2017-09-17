@@ -100,7 +100,7 @@ func TestValidate(t *testing.T) {
 	for _, td := range tds {
 		vr, err := v.Validate("2017092", []LotteryEntry{td.entry})
 		if err != nil {
-			t.Fatalf("Validate error:%v, entry:%v", errors.Trace(err), td.entry)
+			t.Fatalf("Validate error:%v, entry:%v", errors.ErrorStack(err), td.entry)
 		}
 		if td.money != vr.Money {
 			t.Fatalf("expect money:%v, recv:%v, data:%#v", td.money, vr.Money, vr)
@@ -129,7 +129,7 @@ func TestValidateMultiple(t *testing.T) {
 	for _, td := range tds {
 		vr, err := v.Validate("2017092", td.entry)
 		if err != nil {
-			t.Fatalf("Validate error:%v, entry:%v", errors.Trace(err), td.entry)
+			t.Fatalf("Validate error:%v, entry:%v", errors.ErrorStack(err), td.entry)
 		}
 		if td.money != vr.Money {
 			t.Fatalf("expect money:%v, recv:%v, data:%#v", td.money, vr.Money, vr)
