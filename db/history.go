@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"strconv"
+
 	"github.com/juju/errors"
 	"github.com/zssky/log"
 )
@@ -13,7 +15,7 @@ type Lottery struct {
 	Expect        string `json:"expect"`
 	Red           string `json:"red"`
 	Blue          int    `json:"blue"`
-	OpenTime      string `json:opentime"`
+	OpenTime      string `json:"opentime"`
 	OpenTimestamp string `json:"opentimestamp"`
 }
 
@@ -54,6 +56,40 @@ func (s *Sqlite3) GetAllHistory(query map[string]string, limit int) ([]Lottery, 
 			return nil, errors.Trace(err)
 		}
 
+		list = append(list, l)
+	}
+
+	return list, nil
+}
+
+func (s *Sqlite3) GetRedList(limit int) ([][]int, error) {
+	sql := "SELECT red FROM history"
+	if limit > 0 {
+		sql += fmt.Sprintf(" LIMIT %v", limit)
+	}
+
+	log.Debugf("sql:%v", sql)
+	rows, err := s.Query(sql)
+	if err != nil {
+		return nil, errors.Trace(err)
+	}
+
+	list := make([][]int, 0)
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var r string
+		var l []int
+
+		if err := rows.Scan(&r); err != nil {
+			return nil, errors.Trace(err)
+		}
+
+		for _, s := range strings.Split(r, ",") {
+			num, _ := strconv.Atoi(s)
+			l = append(l, num)
+		}
 		list = append(list, l)
 	}
 

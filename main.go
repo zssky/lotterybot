@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/davygeek/lotterybot/db"
 	"github.com/juju/errors"
 	"github.com/zssky/log"
+	"github.com/zssky/lotterybot/db"
 	httptool "github.com/zssky/tc/http"
 )
 
