@@ -34,7 +34,17 @@ func TestWinning(t *testing.T) {
 	}
 
 	t.Logf("history: %v", vr.History)
+	max := validate.ValidateEntry{}
 	for _, e := range vr.Entrys {
-		t.Logf("match: %#v, money: %v", e.Match, e.Money)
+		//t.Logf("match: %#v, money: %v", e.Match, e.Money)
+		if e.Money > max.Money {
+			max = e
+		}
 	}
+
+	t.Logf("Sum:%v", vr.Money)
+	if max.Money > 0 {
+		t.Logf("max match:%#v, money: %v", max.Match, max.Money)
+	}
+
 }
