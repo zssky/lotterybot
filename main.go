@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"net/http"
 	"time"
 
 	"github.com/davygeek/lotterybot/db"
@@ -11,9 +10,9 @@ import (
 	httptool "github.com/zssky/tc/http"
 )
 
-const (
+var (
 	host            = "http://f.apiplus.net/ssq-20.json"
-	pollDataSeconds = 60 * time.Seconds
+	pollDataSeconds = 60 * time.Second
 )
 
 type LotteryData struct {
@@ -51,7 +50,7 @@ func main() {
 }
 
 func Poll() {
-	pollDataTicker := time.NewTicker(pollDataSeconds)
+	pollDataTicker := time.Tick(pollDataSeconds)
 
 	for {
 		select {
@@ -62,7 +61,7 @@ func Poll() {
 }
 
 func CollectHistoryData() {
-	data, _, err := httptool.SimpleGet(host, time.Seconds*10, time.Seconds*10)
+	data, _, err := httptool.SimpleGet(host, time.Second*10, time.Second*10)
 	if err != nil {
 		log.Errorf("%v", err)
 		return
