@@ -6,9 +6,12 @@ import (
 	"time"
 )
 
+func remove(l []int, i int) []int {
+	return append(l[:i], l[i+1:]...)
+}
+
 func random(count, total int) []int {
 	numbers := make([]int, 0)
-
 	for i := 0; i < total; i++ {
 		numbers = append(numbers, i+1)
 	}
@@ -23,11 +26,13 @@ func random(count, total int) []int {
 	}
 
 	collection := make([]int, 0)
-	for i := range numbers {
+
+	for {
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
-		if r.Intn(len(numbers)-i)+1 <= count-len(collection) {
-			collection = append(collection, numbers[i])
-		}
+		index := r.Intn(len(numbers)-len(collection))
+		collection = append(collection, numbers[index])
+		numbers = remove(numbers, index)
+
 		if len(collection) == count {
 			break
 		}
