@@ -137,5 +137,4 @@ func TestValidateMultiple(t *testing.T) {
 			t.Logf("entry:%#v, match:%#v, money:%v", e.Entry, e.Match, e.Money)
 		}
 	}
-
 }
