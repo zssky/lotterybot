@@ -6,14 +6,17 @@ import (
 	"time"
 )
 
-func remove(l []int, i int) []int {
+func Remove(l []int, i int) []int {
+	if i == len(l) - 1 {
+		return l[:i]
+	}
 	return append(l[:i], l[i+1:]...)
 }
 
-func Random(count, total int) []int {
+func RandomSort(start, end int) []int {
 	numbers := make([]int, 0)
-	for i := 0; i < total; i++ {
-		numbers = append(numbers, i+1)
+	for i := 0; i < end-start+1; i++ {
+		numbers = append(numbers, i+start)
 	}
 
 	for i := range numbers {
@@ -25,13 +28,17 @@ func Random(count, total int) []int {
 		numbers[i] = num
 	}
 
+	return numbers
+}
+
+func AverageSelector(numbers []int, count int) []int {
 	collection := make([]int, 0)
 
 	for {
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
 		index := r.Intn(len(numbers) - len(collection))
 		collection = append(collection, numbers[index])
-		numbers = remove(numbers, index)
+		numbers = Remove(numbers, index)
 
 		if len(collection) == count {
 			break
@@ -41,4 +48,19 @@ func Random(count, total int) []int {
 	sort.Ints(collection)
 
 	return collection
+}
+
+func Split(numbers []int, num int) ([]int, []int) {
+	left := make([]int, 0)
+	right := make([]int, 0)
+
+	for i := range numbers {
+		if numbers[i] < num {
+			left = append(left, numbers[i])
+		} else {
+			right = append(right, numbers[i])
+		}
+	}
+
+	return left, right
 }
