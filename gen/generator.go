@@ -9,7 +9,7 @@ import (
 	"github.com/zssky/lotterybot/util"
 )
 
-func Red() []int {
+func Red(date int) []int {
 	red := make([]int, 0)
 
 	random := util.RandomSort(1, 33)
@@ -17,7 +17,7 @@ func Red() []int {
 	process := filter.Leach(random, killed)
 
 	d, _ := db.NewSqlite3(db.DBPATH)
-	ls, _ := d.GetAllHistory(map[string]string{"expect": "2017108"}, 0)
+	ls, _ := d.GetAllHistory(map[string]string{"expect": strconv.Itoa(date-1)}, 0)
 
 	previous := make([]int, 0)
 	for _, s := range strings.Split(ls[0].Red, ",") {
@@ -36,7 +36,25 @@ func Red() []int {
 	return red
 }
 
-func Blue() []int {
-	numbers := util.RandomSort(1, 16)
-	return util.AverageSelector(numbers, 1)
+func Blue(date int) []int {
+	blue := make([]int, 0)
+
+	random := util.RandomSort(1, 16)
+
+	d, _ := db.NewSqlite3(db.DBPATH)
+	l1, _ := d.GetAllHistory(map[string]string{"expect": strconv.Itoa(date-1)}, 0)
+	l2, _ := d.GetAllHistory(map[string]string{"expect": strconv.Itoa(date-2)}, 0)
+	l3, _ := d.GetAllHistory(map[string]string{"expect": strconv.Itoa(date-3)}, 0)
+
+	killed := make([]int, 0)
+	killed = append(killed, l1[0].Blue)
+	killed = append(killed, l2[0].Blue)
+	killed = append(killed, l3[0].Blue)
+
+	process := filter.Leach(random, killed)
+	n := util.AverageSelector(process, 1)
+
+	blue = append(blue, n...)
+
+	return blue
 }
