@@ -24,15 +24,13 @@ func TestWinning(t *testing.T) {
 
 	date := 2017109
 	r := Red(date)
+	r2 := Red2(date)
 	b := Blue(date)
-	t.Logf("red ball: %v, blue ball: %v", r, b)
-	td := []validate.LotteryEntry{
-		{Red: [6]int{r[0], r[1], r[2], r[3], r[4], r[5]}, Blue: b[0]},
-	}
+	t.Logf("red ball: %v, red ball2: %v, blue ball: %v", r, r2, b)
 
-	vr, err := v.Validate(strconv.Itoa(date), td)
+	vr, err := v.Combinations(strconv.Itoa(date), r2, []int{}, b)
 	if err != nil {
-		t.Fatalf("Validate error: %v, entry: %v", err.Error(), td)
+		t.Fatalf("Validate error: %v", err.Error())
 	}
 
 	t.Logf("history: %v", vr.History)

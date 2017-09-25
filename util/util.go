@@ -66,3 +66,16 @@ func Split(numbers []int, num int) ([]int, []int) {
 
 	return left, right
 }
+
+func AppendNum(numbers []int, num int) []int {
+	replica := make([]int, len(numbers))
+	copy(replica, numbers)
+
+	for i := range numbers {
+		if numbers[i] == num {
+			return replica
+		}
+	}
+
+	return append(replica, num)
+}

@@ -61,10 +61,14 @@ func (s *Sqlite3) GetAllHistory(query map[string]string, limit int) ([]Lottery, 
 	return list, nil
 }
 
-func (s *Sqlite3) GetRedList(limit int) ([][]int, error) {
+func (s *Sqlite3) GetRedList(where string, limit int) ([][]int, error) {
 	sql := "SELECT red FROM history"
+	if where != "" {
+		sql += " WHERE " + where
+	}
+
 	if limit > 0 {
-		sql += fmt.Sprintf(" LIMIT %v", limit)
+		sql += fmt.Sprintf("ORDER BY expect DESC LIMIT %v", limit)
 	}
 
 	log.Debugf("sql:%v", sql)
