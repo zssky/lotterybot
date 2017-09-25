@@ -32,13 +32,15 @@ func RandomSort(start, end int) []int {
 }
 
 func AverageSelector(numbers []int, count int) []int {
+	replica := make([]int, len(numbers))
+	copy(replica, numbers)
 	collection := make([]int, 0)
 
 	for {
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
-		index := r.Intn(len(numbers) - len(collection))
-		collection = append(collection, numbers[index])
-		numbers = Remove(numbers, index)
+		index := r.Intn(len(replica) - len(collection))
+		collection = append(collection, replica[index])
+		replica = Remove(replica, index)
 
 		if len(collection) == count {
 			break
