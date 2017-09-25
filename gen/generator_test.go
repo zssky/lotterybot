@@ -29,11 +29,11 @@ func TestWinning(t *testing.T) {
 
 	vr, err := v.Validate("2017111", td)
 	if err != nil {
-		t.Fatalf("Validate error:%v, entry:%v", err.Error(), td)
+		t.Fatalf("Validate error: %v, entry: %v", err.Error(), td)
 	}
 
-	t.Logf("history:%v", vr.History)
+	t.Logf("history: %v", vr.History)
 	for _, e := range vr.Entrys {
-		t.Logf("entry:%#v, match:%#v, money:%v", e.Entry, e.Match, e.Money)
+		t.Logf("match: %#v, money: %v", e.Match, e.Money)
 	}
 }
