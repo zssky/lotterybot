@@ -2,11 +2,11 @@ package db
 
 import (
 	"fmt"
-	"strings"
 	"strconv"
+	"strings"
 
 	"github.com/juju/errors"
-	"github.com/zssky/log"
+	//"github.com/zssky/log"
 )
 
 type Lottery struct {
@@ -39,7 +39,7 @@ func (s *Sqlite3) GetAllHistory(query map[string]string, limit int) ([]Lottery, 
 		sql += fmt.Sprintf("LIMI %v", limit)
 	}
 
-	log.Debugf("sql:%v", sql)
+	//log.Debugf("sql:%v", sql)
 	rows, err := s.Query(sql)
 	if err != nil {
 		return nil, errors.Trace(err)
@@ -71,7 +71,7 @@ func (s *Sqlite3) GetRedList(where string, limit int) ([][]int, error) {
 		sql += fmt.Sprintf("ORDER BY expect DESC LIMIT %v", limit)
 	}
 
-	log.Debugf("sql:%v", sql)
+	//log.Debugf("sql:%v", sql)
 	rows, err := s.Query(sql)
 	if err != nil {
 		return nil, errors.Trace(err)
@@ -99,13 +99,17 @@ func (s *Sqlite3) GetRedList(where string, limit int) ([][]int, error) {
 	return list, nil
 }
 
-func (s *Sqlite3) GetBlueList(limit int) ([]int, error) {
+func (s *Sqlite3) GetBlueList(where string, limit int) ([]int, error) {
 	sql := "SELECT blue FROM history"
+	if where != "" {
+		sql += " WHERE " + where
+	}
+
 	if limit > 0 {
 		sql += fmt.Sprintf(" LIMIT %v", limit)
 	}
 
-	log.Debugf("sql:%v", sql)
+	//log.Debugf("sql:%v", sql)
 	rows, err := s.Query(sql)
 	if err != nil {
 		return nil, errors.Trace(err)

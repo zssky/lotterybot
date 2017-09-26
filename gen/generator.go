@@ -89,14 +89,10 @@ func Blue(date int) []int {
 	random := util.RandomSort(1, 16)
 
 	d, _ := db.NewSqlite3(db.DBPATH)
-	l1, _ := d.GetAllHistory(map[string]string{"expect": strconv.Itoa(date - 1)}, 0)
-	l2, _ := d.GetAllHistory(map[string]string{"expect": strconv.Itoa(date - 2)}, 0)
-	l3, _ := d.GetAllHistory(map[string]string{"expect": strconv.Itoa(date - 3)}, 0)
+	l, _ := d.GetBlueList(fmt.Sprintf(" expect<'%s' ", strconv.Itoa(date)), 3)
 
 	killed := make([]int, 0)
-	killed = append(killed, l1[0].Blue)
-	killed = append(killed, l2[0].Blue)
-	killed = append(killed, l3[0].Blue)
+	killed = append(killed, l...)
 
 	process := filter.Leach(random, killed)
 	n := util.AverageSelector(process, 1)

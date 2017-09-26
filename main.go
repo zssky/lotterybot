@@ -40,7 +40,7 @@ func main() {
 
 	log.Debugf("list:%v", list)
 
-	blues, err := sqlite3.GetBlueList(0)
+	blues, err := sqlite3.GetBlueList("", 0)
 	if err != nil {
 		log.Errorf("%v", errors.ErrorStack(err))
 	}

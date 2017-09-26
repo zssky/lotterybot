@@ -38,7 +38,11 @@ func AverageSelector(numbers []int, count int) []int {
 
 	for {
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
-		index := r.Intn(len(replica) - len(collection))
+		l := len(replica) - len(collection)
+		if l <= 0 {
+			break
+		}
+		index := r.Intn(l)
 		collection = append(collection, replica[index])
 		replica = Remove(replica, index)
 
