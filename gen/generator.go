@@ -68,7 +68,7 @@ func Red2(date int) []int {
 
 	small, big := util.Split(last, 17)
 	s := util.AverageSelector(small, 3)
-	b := util.AverageSelector(big, 3)
+	b := util.AverageSelector(big, 2)
 
 	red = append(append(red, s...), b...)
 

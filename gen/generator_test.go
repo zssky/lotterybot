@@ -10,11 +10,11 @@ import (
 )
 
 func TestRed(t *testing.T) {
-	t.Logf("red ball: %v", Red(2017111))
+	t.Logf("red ball: %v", Red(2017112))
 }
 
 func TestBlue(t *testing.T) {
-	t.Logf("blue ball: %v", Blue(2017111))
+	t.Logf("blue ball: %v", Blue(2017112))
 }
 
 func TestRed2(t *testing.T) {
@@ -29,7 +29,7 @@ func TestWinning(t *testing.T) {
 	}
 
 	count := 1000
-	date := 2017111
+	date := 2017109
 	report := map[string]int{
 		"0+0": 0,
 		"1+0": 0,
