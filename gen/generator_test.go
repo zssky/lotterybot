@@ -25,7 +25,7 @@ func TestWinning(t *testing.T) {
 		t.Fatalf("NewValidator error:%v", err)
 	}
 
-	count := 100000
+	count := 1000
 	date := 2017109
 	report := map[string]int{
 		"0+0": 0,
