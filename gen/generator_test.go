@@ -10,15 +10,15 @@ import (
 )
 
 func TestRed(t *testing.T) {
-	t.Logf("red ball: %v", Red(2017112))
+	t.Logf("red ball: %v", Red(2017113))
 }
 
 func TestBlue(t *testing.T) {
-	t.Logf("blue ball: %v", Blue(2017112))
+	t.Logf("blue ball: %v", Blue(2017113))
 }
 
 func TestRed2(t *testing.T) {
-	t.Logf("red ball: %v", Red2(2017112))
+	t.Logf("red ball: %v", Red2(2017113))
 }
 
 func TestWinning(t *testing.T) {
