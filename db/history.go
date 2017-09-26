@@ -68,7 +68,7 @@ func (s *Sqlite3) GetRedList(where string, limit int) ([][]int, error) {
 	}
 
 	if limit > 0 {
-		sql += fmt.Sprintf("ORDER BY expect DESC LIMIT %v", limit)
+		sql += fmt.Sprintf(" ORDER BY expect DESC LIMIT %v", limit)
 	}
 
 	//log.Debugf("sql:%v", sql)
@@ -106,7 +106,7 @@ func (s *Sqlite3) GetBlueList(where string, limit int) ([]int, error) {
 	}
 
 	if limit > 0 {
-		sql += fmt.Sprintf(" LIMIT %v", limit)
+		sql += fmt.Sprintf(" ORDER BY expect DESC LIMIT %v", limit)
 	}
 
 	//log.Debugf("sql:%v", sql)

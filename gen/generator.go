@@ -2,13 +2,13 @@ package gen
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 
 	"github.com/zssky/lotterybot/db"
 	"github.com/zssky/lotterybot/filter"
 	"github.com/zssky/lotterybot/util"
-	"sort"
 )
 
 func Red(date int) []int {

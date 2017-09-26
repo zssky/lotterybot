@@ -1,21 +1,24 @@
 package gen
 
 import (
-	"strconv"
-	"testing"
-
 	"fmt"
 	"sort"
+	"strconv"
+	"testing"
 
 	"github.com/zssky/lotterybot/validate"
 )
 
 func TestRed(t *testing.T) {
-	t.Logf("red ball: %v", Red(2017109))
+	t.Logf("red ball: %v", Red(2017111))
 }
 
 func TestBlue(t *testing.T) {
-	t.Logf("blue ball: %v", Blue(2017109))
+	t.Logf("blue ball: %v", Blue(2017111))
+}
+
+func TestRed2(t *testing.T) {
+	t.Logf("red ball: %v", Red2(2017112))
 }
 
 func TestWinning(t *testing.T) {
@@ -26,18 +29,20 @@ func TestWinning(t *testing.T) {
 	}
 
 	count := 1000
-	date := 2017109
+	date := 2017111
 	report := map[string]int{
 		"0+0": 0,
 		"1+0": 0,
 		"2+0": 0,
 		"3+0": 0,
+		"4+0": 0,
 		"5+0": 0,
 		"6+0": 0,
 		"0+1": 0,
 		"1+1": 0,
 		"2+1": 0,
 		"3+1": 0,
+		"4+1": 0,
 		"5+1": 0,
 		"6+1": 0,
 	}

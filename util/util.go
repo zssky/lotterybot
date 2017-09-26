@@ -7,7 +7,7 @@ import (
 )
 
 func Remove(l []int, i int) []int {
-	if i == len(l) - 1 {
+	if i == len(l)-1 {
 		return l[:i]
 	}
 	return append(l[:i], l[i+1:]...)
