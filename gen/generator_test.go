@@ -21,6 +21,10 @@ func TestRed2(t *testing.T) {
 	t.Logf("red ball: %v", Red2(2017113))
 }
 
+func TestRed3(t *testing.T) {
+	t.Logf("red ball: %v", Red3(2017113))
+}
+
 func TestWinning(t *testing.T) {
 	testDBFile := "../data/db"
 	v, err := validate.NewValidator(testDBFile)
@@ -47,14 +51,13 @@ func TestWinning(t *testing.T) {
 		"6+1": 0,
 	}
 
-	sum := 0
 	for i := 0; i < count; i++ {
 		//r := Red(date)
-		r2 := Red2(date)
+		r3 := Red3(date)
 		b := Blue(date)
 		//t.Logf("red ball: %v, red ball2: %v, blue ball: %v", r, r2, b)
 
-		vr, err := v.Combinations(strconv.Itoa(date), r2, []int{}, b)
+		vr, err := v.Combinations(strconv.Itoa(date), r3, []int{}, b)
 		if err != nil {
 			t.Fatalf("Validate error: %v", err.Error())
 		}
@@ -66,9 +69,11 @@ func TestWinning(t *testing.T) {
 			if e.Money > max.Money {
 				max = e
 			}
-			key := fmt.Sprintf("%d+%d", e.Match.RedCount, e.Match.BlueCount)
+		}
+
+		if max.Money > 0 {
+			key := fmt.Sprintf("%d+%d", max.Match.RedCount, max.Match.BlueCount)
 			report[key]++
-			sum++
 		}
 
 		//t.Logf("Sum:%v", vr.Money)
@@ -86,6 +91,6 @@ func TestWinning(t *testing.T) {
 
 	sort.Strings(keys)
 	for _, k := range keys {
-		t.Logf("match: %s, count: %v, rate: %f%%", k, report[k], float32(report[k]*100/sum))
+		t.Logf("match: %s, count: %v, rate: %f%%", k, report[k], float32(report[k]*100)/float32(count))
 	}
 }
