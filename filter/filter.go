@@ -1,17 +1,16 @@
 package filter
 
-import (
-	"github.com/zssky/lotterybot/util"
-)
-
 func Leach(numbers, killed []int) []int {
-	f := numbers
-	for _, n := range killed {
-		for i := range numbers {
+	f := make([]int, 0)
+	for i := range numbers {
+		flag := true
+		for _, n := range killed {
 			if numbers[i] == n {
-				f = util.Remove(f, i)
-				break
+				flag = false
 			}
+		}
+		if flag {
+			f = append(f, numbers[i])
 		}
 	}
 

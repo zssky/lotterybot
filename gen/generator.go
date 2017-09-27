@@ -85,45 +85,58 @@ func Red2(date int) []int {
 
 func Red3(date int) []int {
 	red := make([]int, 0)
-	numbers := make([]int, 0)
-	for i := 0; i < 33; i++ {
-		numbers = append(numbers, i+1)
-	}
 
 	d, _ := db.NewSqlite3(db.DBPATH)
 	data, _ := d.GetRedList(fmt.Sprintf(" expect<'%s' ", strconv.Itoa(date)), 2)
 
 	count := 6
 	last := make([][]int, count)
-	for i := range data[1] {
-		last[i] = make([]int, 0)
-		if data[1][i]-1 > 0 {
-			last[i] = util.AppendNum(last[i], data[1][i]-1)
-		}
-		last[i] = util.AppendNum(last[i], data[1][i])
-		if data[1][i]+1 <= 33 {
-			last[i] = util.AppendNum(last[i], data[1][i]+1)
+	for _, n := range data {
+		for i := range n {
+			last[i] = make([]int, 0)
+			//if n[i]-2 > 0 {
+			//	last[i] = util.AppendNum(last[i], n[i]-2)
+			//}
+			if n[i]-1 > 0 {
+				last[i] = util.AppendNum(last[i], n[i]-1)
+			}
+			last[i] = util.AppendNum(last[i], n[i])
+			if n[i]+1 <= 33 {
+				last[i] = util.AppendNum(last[i], n[i]+1)
+			}
+			//if n[i]+2 <= 33 {
+			//	last[i] = util.AppendNum(last[i], n[i]+2)
+			//}
 		}
 	}
 
-	other := make([]int, 0)
+	other := util.RandomSort(1, 33)
 	for _, l := range last {
-		other = filter.Leach(numbers, l)
+		other = filter.Leach(other, l)
 	}
 
-	remaining := 6
+	total := 6
+	remaining := total
 	otherCount := 1
-	chance := util.AverageSelector([]int{0, 1, 2}, 1)
 
 	for _, l := range last {
 		if remaining > otherCount {
+			chance := util.AverageSelector([]int{0, 1, 2}, 1)
+			if chance[0] == 0 {
+				continue
+			}
 			b := util.AverageSelector(l, chance[0])
-			red = append(red, b...)
-			remaining = count - len(b)
-		} else if remaining == otherCount {
-			b := util.AverageSelector(other, otherCount)
-			red = append(red, b...)
-			break
+			for _, n := range b {
+				red = util.AppendNum(red, n)
+			}
+			remaining = total - len(red)
+		}
+	}
+
+	if remaining > 0 {
+		b := util.AverageSelector(other, remaining)
+		for _, n := range b {
+			red = util.AppendNum(red, n)
 		}
 	}
 
