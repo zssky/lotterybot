@@ -151,7 +151,7 @@ func Blue(date int) []int {
 	random := util.RandomSort(1, 16)
 
 	d, _ := db.NewSqlite3(db.DBPATH)
-	l, _ := d.GetBlueList(fmt.Sprintf(" expect<'%s' ", strconv.Itoa(date)), 3)
+	l, _ := d.GetBlueList(fmt.Sprintf(" expect<'%s' ", strconv.Itoa(date)), 4)
 
 	killed := make([]int, 0)
 	killed = append(killed, l...)
