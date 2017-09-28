@@ -167,5 +167,10 @@ func (s *Sqlite3) RemoveAllHistory() error {
 		return errors.Trace(err)
 	}
 
+	sql = "update sqlite_sequence set seq=0 where name='history'"
+	if _, err := s.Exec(sql); err != nil {
+		return errors.Trace(err)
+	}
+
 	return nil
 }

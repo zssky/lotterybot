@@ -3,7 +3,9 @@ package db
 import (
 	"encoding/json"
 	"os"
+	"sort"
 	"strconv"
+	"strings"
 	"sync"
 	"testing"
 )
@@ -121,6 +123,14 @@ func TestRefreshHistory(t *testing.T) {
 			OpenTime: item.KjDate,
 		})
 	}
+
+	sort.SliceStable(lotteryList, func(i, j int) bool {
+		if strings.Compare(lotteryList[i].Expect, lotteryList[j].Expect) < 0 {
+			return true
+		}
+
+		return false
+	})
 
 	if err := db.BatchAddHistory(lotteryList); err != nil {
 		t.Fatalf("err:%v", err)
