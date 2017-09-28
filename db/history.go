@@ -141,3 +141,31 @@ func (s *Sqlite3) AddHistory(value Lottery) error {
 
 	return nil
 }
+
+func (s *Sqlite3) BatchAddHistory(list []Lottery) error {
+	tx, err := s.Begin()
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+
+	sql := "INSERT INTO history(expect, red, blue, opentime, opentimestamp) VALUES(?, ?, ?, ?, ?)"
+	for _, item := range list {
+		if _, err := tx.Exec(sql, item.Expect, item.Red, item.Blue, item.OpenTime, item.OpenTimestamp); err != nil {
+			tx.Rollback()
+			return err
+		}
+	}
+
+	return tx.Commit()
+}
+
+func (s *Sqlite3) RemoveAllHistory() error {
+	sql := "DELETE FROM history"
+
+	if _, err := s.Exec(sql); err != nil {
+		return errors.Trace(err)
+	}
+
+	return nil
+}
