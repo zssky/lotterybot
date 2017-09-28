@@ -118,7 +118,7 @@ func TestRefreshHistory(t *testing.T) {
 
 		lotteryList = append(lotteryList, Lottery{
 			Expect:   item.KjIssue,
-			Red:      item.KjZnum,
+			Red:      strings.Replace(strings.TrimSpace(item.KjZnum), " ", ",", -1),
 			Blue:     blue,
 			OpenTime: item.KjDate,
 		})
